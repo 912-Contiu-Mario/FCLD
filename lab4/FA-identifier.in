@@ -1,0 +1,5 @@
+states:A,B,C
+alphabet:[A.Z|a.z]=letter,[0.9]=digit
+initial:A
+final:B
+transitions:A|B=[letter],A|C=[digit],B|B=[letter.digit],C|C=[digit.letter]

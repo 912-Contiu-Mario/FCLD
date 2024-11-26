@@ -1,0 +1,17 @@
+entry ~
+	num a, b, c, max:
+	input>>a:
+	input>>b:
+	input>>c:
+	
+	if [a gt b] ~
+		max is a:
+	~
+	else ~
+		max is b:
+	~
+
+	if [c gt max]~
+		max is c:
+	~
+~

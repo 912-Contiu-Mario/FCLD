@@ -1,0 +1,13 @@
+entry ~
+	num number,anotherNumber is 2:
+	input>>number:
+	boolean isPrime is true:
+	
+	until [anotherNumber gte number]~
+		if [(number mod anotherNumber) eq 0] ~
+			isPrime is false:
+			stop:~
+		anotherNumber is anotherNumber plus 1:~
+	output<<isPrime:
+	
+~

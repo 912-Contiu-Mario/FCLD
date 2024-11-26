@@ -1,0 +1,9 @@
+entry ~
+	num a#, b:
+	
+
+	if[a gt b]~
+		a# ` b:
+		~
+
+~

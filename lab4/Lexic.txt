@@ -1,0 +1,55 @@
+Alphabet:
+
+a. Upper (A-Z) and lower case letters (a-z) of the English alphabet.
+
+b. Underline character '_'.
+
+c. Decimal digits (0-9).
+
+---
+
+Lexic:
+
+a. Special symbols, representing:
+
+- Operators: +, -, *, /, gt (greater than), gte (greater than or equal to), eq (equal), mod (modulus), lt(less than), lte(less than or equal to), ne(not equal)
+
+- Separators: [ ], { }, :, space.
+
+- Reserved words:
+  - num, boolean, str, entry, for, until, if, else, stop, true, false, is, input>>, output<<, gt, gte, eq, mod, lt, lte, ne
+
+---
+
+b. Identifiers:
+
+- A sequence of letters and digits, where the first character must be a letter.
+
+  Rule:
+  identifier ::= letter {letter | digit}
+  letter ::= "A" | "B" | ... | "Z" | "a" | "b" | ... | "z"
+  digit ::= "0" | "1" | ... | "9"
+  
+  Example: number, var15A, Aasd123SFDA
+
+---
+
+c. Constants:
+
+1. Number:
+   Rule:
+   noconst ::= "-" no | no
+   no ::= digit {no}
+   
+   Example: 1, -5, 2
+
+2. Boolean:
+   Rule:
+   boolean ::= true | false
+
+3. String:
+   Rule:
+   string ::= char {string}
+   char ::= letter | digit
+   
+   Example: "abc1324"

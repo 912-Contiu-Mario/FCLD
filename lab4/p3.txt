@@ -1,0 +1,14 @@
+entry ~
+	
+	num a{20}, index, index1:
+	for [index, 0, 19, 1]~
+		input>>a{index}:
+	~
+	for[index, 0, 19, 2]~
+		if[a{index} eq 0]~
+			for[index1, index, 19, 1]~
+				a{index1} is a{index1+1}:
+			~
+		~
+	~
+~

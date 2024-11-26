@@ -1,0 +1,29 @@
+program ::= "entry" "~" stmtlist "~"
+
+stmtlist ::= stmt | stmt stmtlist
+
+stmt ::= simplstmt | structstmt
+
+simplstmt ::= assignstmt | iostmt
+
+assignstmt ::= IDENTIFIER "IS" expression ":"
+
+iostmt ::= "input>>" IDENTIFIER ":" | "output<<" IDENTIFIER ":"
+
+structstmt ::= ifstmt | whilestmt | forstmt
+
+ifstmt ::= "IF" "[" condition "]" "~" stmt "ELSE" "~" stmt "~"
+
+whilestmt ::= "UNTIL" "[" condition "]" "~" stmt "~"
+
+forstmt ::= "FOR" "[" IDENTIFIER "," expression "," expression "," expression "]" "~" stmt "~"
+
+condition ::= expression RELATION expression
+
+expression ::= expression "+" term | expression "-" term | term
+
+term ::= term "*" | factor | term "/" factor | factor
+
+factor ::= "(" expression ")" | IDENTIFIER
+
+RELATION ::= "gt" | "gte" | "eq" | "mod" | "lt" | "lte" | "ne"
