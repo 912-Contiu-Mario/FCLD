@@ -1,0 +1,17 @@
+# Non-terminals
+S
+A
+B
+$
+# Terminals
+a
+b
+$
+# Start symbol
+S
+$
+# Productions
+S -> A B
+A -> a A
+A -> a
+B -> b
