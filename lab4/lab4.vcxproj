@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="FiniteAutomata.cpp" />
+    <ClCompile Include="Grammar.cpp" />
     <ClCompile Include="HashTable.cpp" />
     <ClCompile Include="lab4.cpp" />
     <ClCompile Include="LexicalException.cpp" />
@@ -142,6 +143,8 @@
     <None Include="STF.out" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="g1.txt" />
+    <Text Include="g2.txt" />
     <Text Include="Lexic.txt" />
     <Text Include="p1.txt" />
     <Text Include="p1err.txt" />
@@ -151,6 +154,7 @@
     <Text Include="token.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Grammar.h" />
     <ClInclude Include="HashTable.h" />
     <ClInclude Include="Scanner.h" />
     <ClInclude Include="Tokenize.h" />

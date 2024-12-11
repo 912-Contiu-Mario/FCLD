@@ -1,6 +1,7 @@
-D:\facultate\an3sem1\FCLD\lab\lab4\lab4\lab4\FiniteAutomata.cpp;D:\facultate\an3sem1\FCLD\lab\lab4\lab4\lab4\x64\Debug\FiniteAutomata.obj
-D:\facultate\an3sem1\FCLD\lab\lab4\lab4\lab4\HashTable.cpp;D:\facultate\an3sem1\FCLD\lab\lab4\lab4\lab4\x64\Debug\HashTable.obj
-D:\facultate\an3sem1\FCLD\lab\lab4\lab4\lab4\lab4.cpp;D:\facultate\an3sem1\FCLD\lab\lab4\lab4\lab4\x64\Debug\lab4.obj
-D:\facultate\an3sem1\FCLD\lab\lab4\lab4\lab4\LexicalException.cpp;D:\facultate\an3sem1\FCLD\lab\lab4\lab4\lab4\x64\Debug\LexicalException.obj
-D:\facultate\an3sem1\FCLD\lab\lab4\lab4\lab4\Scanner.cpp;D:\facultate\an3sem1\FCLD\lab\lab4\lab4\lab4\x64\Debug\Scanner.obj
-D:\facultate\an3sem1\FCLD\lab\lab4\lab4\lab4\Tokenize.cpp;D:\facultate\an3sem1\FCLD\lab\lab4\lab4\lab4\x64\Debug\Tokenize.obj
+D:\flcd-mario\lab4\FiniteAutomata.cpp;D:\flcd-mario\lab4\x64\Debug\FiniteAutomata.obj
+D:\flcd-mario\lab4\Grammar.cpp;D:\flcd-mario\lab4\x64\Debug\Grammar.obj
+D:\flcd-mario\lab4\HashTable.cpp;D:\flcd-mario\lab4\x64\Debug\HashTable.obj
+D:\flcd-mario\lab4\lab4.cpp;D:\flcd-mario\lab4\x64\Debug\lab4.obj
+D:\flcd-mario\lab4\LexicalException.cpp;D:\flcd-mario\lab4\x64\Debug\LexicalException.obj
+D:\flcd-mario\lab4\Scanner.cpp;D:\flcd-mario\lab4\x64\Debug\Scanner.obj
+D:\flcd-mario\lab4\Tokenize.cpp;D:\flcd-mario\lab4\x64\Debug\Tokenize.obj

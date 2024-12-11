@@ -33,6 +33,9 @@
     <ClCompile Include="Tokenize.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Grammar.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="FA-identifier.in">
@@ -73,6 +76,12 @@
     <Text Include="token.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="g1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="g2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HashTable.h">
@@ -83,6 +92,9 @@
     </ClInclude>
     <ClInclude Include="Tokenize.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Grammar.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
