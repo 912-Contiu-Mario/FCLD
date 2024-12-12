@@ -15,5 +15,6 @@ int main() {
     cout << endl;
     grammar.printProductions();
     cout << endl;
+    cout << grammar.checkCFG();
     return 0;
 }
