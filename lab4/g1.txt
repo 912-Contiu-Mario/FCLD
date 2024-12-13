@@ -14,4 +14,4 @@ $
 S -> A B
 A -> a A
 A -> a
-B -> b
+B -> b B
