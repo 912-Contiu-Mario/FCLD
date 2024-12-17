@@ -8,20 +8,16 @@
 
 class Grammar {
 private:
-    std::set<std::string> nonTerminals;  // Set of non-terminal symbols
-    std::set<std::string> terminals;     // Set of terminal symbols
-    std::string startSymbol;             // Starting symbol of the grammar
-    std::map<std::string, std::vector<std::vector<std::string>>> productions;  // Productions map
-
-    // Helper functions
+    std::set<std::string> nonTerminals;
+    std::set<std::string> terminals;
+    std::string startSymbol;
+    std::map<std::string, std::vector<std::vector<std::string>>> productions;
     bool isTerminal(const std::string& symbol) const;
     bool isNonTerminal(const std::string& symbol) const;
     std::vector<std::string> splitProduction(const std::string& production) const;
-
+    bool isCFG = true;
 public:
     Grammar();
-
-    // Required operations
     bool readFromFile(const std::string& filename);
     void printNonTerminals() const;
     void printTerminals() const;
