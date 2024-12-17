@@ -41,10 +41,6 @@ public:
     }
 
 
-    // Helper to get First set of a symbol (already partially declared)
-    std::set<std::string> getFirst(const std::string& symbol);
-    std::set<std::string> getFollow(const std::string& symbol);
-    
     void computeFirst();
     void computeFollow();
 

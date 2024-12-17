@@ -173,93 +173,124 @@ bool Grammar::checkCFG() const {
 	return isCFG;
 }
 
-
-set<string> Grammar::getFirst(const string& symbol) {
-	set<string> firstSet;
-	if (isTerminal(symbol)) {
-		firstSet.insert(symbol);
-	}
-	else {
-		for (auto production : productions[symbol]) {
-			bool hasEpsilon = true;
-			for (const string& prodSymbol : production) {
-				if (isTerminal(prodSymbol)) {
-					firstSet.insert(prodSymbol);
-					hasEpsilon = false;
-					break;
-				}
-				else {
-					set<string> firstProd = getFirst(prodSymbol);
-					if (!firstProd.count("$")) {
-						hasEpsilon = false;
-					}
-					addToSet(firstSet, firstProd);
-				}
-			}
-			if (hasEpsilon) {
-				firstSet.insert("$");
-			}
-		}
-	}
-	return firstSet;
-}
-
-set<string> Grammar::getFollow(const string& symbol) {
-	set<string> followSet;
-	if (symbol == startSymbol) {
-		followSet.insert("$");
-	}
-	for (const auto& production : productions) {
-		for (const auto& prod : production.second) {
-			for (size_t i = 0; i < prod.size(); i++) {
-				if (prod[i] == symbol) {
-					if (i == prod.size() - 1) {
-						if (production.first != symbol) {
-							addToSet(followSet, getFollow(production.first));
-						}
-					}
-					else {
-						bool hasEpsilon = true;
-						for (size_t j = i + 1; j < prod.size(); j++) {
-							if (isTerminal(prod[j])) {
-								followSet.insert(prod[j]);
-								hasEpsilon = false;
-								break;
-							}
-							else {
-								set<string> firstProd = getFirst(prod[j]);
-								if (!firstProd.count("$")) {
-									hasEpsilon = false;
-								}
-								addToSet(followSet, firstProd);
-							}
-						}
-						if (hasEpsilon && production.first != symbol) {
-							addToSet(followSet, getFollow(production.first));
-						}
-					}
-				}
-			}
-		}
-	}
-	return followSet;
-}
-
 void Grammar::computeFirst() {
 	firstSets.clear();
+
 	for (const string& terminal : terminals) {
 		firstSets[terminal].insert(terminal);
 	}
 
 	for (const string& nonTerminal : nonTerminals) {
-		firstSets[nonTerminal] = getFirst(nonTerminal);
+		firstSets[nonTerminal] = set<string>();
+	}
+
+	bool changed = true;
+
+	while (changed) {
+		changed = false;
+
+		for (const auto& productionPair : productions) {
+			const string& A = productionPair.first;
+			const auto& productionList = productionPair.second;
+
+			for (const auto& production : productionList) {
+				bool epsilonInAll = true;
+
+				for (const string& symbol : production) {
+					size_t beforeSize = firstSets[A].size();
+
+					for (const string& symFirst : firstSets[symbol]) {
+						if (symFirst != "$") {
+							firstSets[A].insert(symFirst);
+						}
+					}
+
+					if (firstSets[A].size() > beforeSize) {
+						changed = true;
+					}
+
+					if (firstSets[symbol].find("$") == firstSets[symbol].end()) {
+						epsilonInAll = false;
+						break;
+					}
+				}
+
+				if (epsilonInAll) {
+					if (firstSets[A].find("$") == firstSets[A].end()) {
+						firstSets[A].insert("$");
+						changed = true;
+					}
+				}
+			}
+		}
 	}
 }
 
+
 void Grammar::computeFollow() {
 	followSets.clear();
-	for (const string& nonTerminal : nonTerminals) {
-		followSets[nonTerminal] = getFollow(nonTerminal);
+
+	followSets[startSymbol].insert("$");
+
+	bool changed = true;
+
+	while (changed) {
+		changed = false;
+
+		for (const auto& productionPair : productions) {
+			const string& A = productionPair.first;
+			const vector<vector<string>>& productionList = productionPair.second;
+
+			for (const auto& production : productionList) {
+				for (size_t i = 0; i < production.size(); ++i) {
+					const string& B = production[i];
+
+					if (isNonTerminal(B)) {
+						set<string> firstBeta;
+						bool epsilonInBeta = true;
+
+						for (size_t j = i + 1; j < production.size(); ++j) {
+							const string& symbol = production[j];
+							const set<string>& firstSetSymbol = firstSets[symbol];
+
+							for (const string& symFirst : firstSetSymbol) {
+								if (symFirst != "$") {
+									firstBeta.insert(symFirst);
+								}
+							}
+
+							if (firstSetSymbol.find("$") == firstSetSymbol.end()) {
+								epsilonInBeta = false;
+								break;
+							}
+						}
+
+						if (i + 1 < production.size()) {
+							size_t beforeSize = followSets[B].size();
+							bool addedFirst = addToSet(followSets[B], firstBeta);
+							if (addedFirst) {
+								changed = true;
+							}
+
+							if (epsilonInBeta) {
+								size_t beforeSizeFollow = followSets[B].size();
+								bool addedFollow = addToSet(followSets[B], followSets[A]);
+								if (addedFollow) {
+									changed = true;
+								}
+							}
+						}
+						else {
+							size_t beforeSizeFollow = followSets[B].size();
+							bool addedFollow = addToSet(followSets[B], followSets[A]);
+							if (addedFollow) {
+								changed = true;
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }
 
