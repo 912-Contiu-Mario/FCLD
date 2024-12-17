@@ -1,9 +1,11 @@
-
 #include <string>
 #include <vector>
 #include <set>
 #include <map>
 #include <fstream>
+#include <iostream>
+#include <sstream>
+#include <algorithm>
 
 class Grammar {
 private:
@@ -18,7 +20,6 @@ private:
 
     std::map<std::string, std::set<std::string>> firstSets;  // To store First sets
     std::map<std::string, std::set<std::string>> followSets; // To store Follow sets
-
 
     // Helper function to add elements to a set and check if it was modified
     bool addToSet(std::set<std::string>& targetSet, const std::set<std::string>& sourceSet);
