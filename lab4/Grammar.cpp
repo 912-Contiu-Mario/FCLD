@@ -5,6 +5,15 @@
 #include <set>
 using namespace std;
 
+bool Grammar::addToSet(std::set<std::string>& targetSet, const std::set<std::string>& sourceSet)
+{
+    
+        size_t oldSize = targetSet.size();
+        targetSet.insert(sourceSet.begin(), sourceSet.end());
+        return targetSet.size() > oldSize;
+    
+}
+
 Grammar::Grammar() : startSymbol("") {}
 
 bool Grammar::isTerminal(const string& symbol) const {

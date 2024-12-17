@@ -21,11 +21,7 @@ private:
 
 
     // Helper function to add elements to a set and check if it was modified
-    bool addToSet(set<string>& targetSet, set<string>& sourceSet) {
-        size_t oldSize = targetSet.size();
-        targetSet.insert(sourceSet.begin(), sourceSet.end());
-        return targetSet.size() > oldSize;
-    }
+    bool addToSet(std::set<std::string>& targetSet, const std::set<std::string>& sourceSet);
 public:
     Grammar();
     bool readFromFile(const std::string& filename);
