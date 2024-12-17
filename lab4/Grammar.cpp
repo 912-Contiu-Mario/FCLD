@@ -2,7 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <algorithm>
-
+#include <set>
 using namespace std;
 
 Grammar::Grammar() : startSymbol("") {}
@@ -166,4 +166,116 @@ void Grammar::printProductionsFor(const string& nonTerminal) const {
 bool Grammar::checkCFG() const {
     
     return isCFG;
+}
+
+
+std::set<std::string> Grammar::getFirst(const std::string& symbol) {
+	std::set<std::string> firstSet;
+    if (isTerminal(symbol)) {
+		firstSet.insert(symbol);
+	}
+    else {
+        for (const std::vector<std::string>& production : productions[symbol]) {
+			bool hasEpsilon = true;
+            for (const std::string& prodSymbol : production) {
+                if (isTerminal(prodSymbol)) {
+					firstSet.insert(prodSymbol);
+					hasEpsilon = false;
+					break;
+				}
+                else {
+					std::set<std::string> firstProd = getFirst(prodSymbol);
+                    if (!firstProd.count("$")) {
+						hasEpsilon = false;
+					}
+					addToSet(firstSet, firstProd);
+				}
+			}
+            if (hasEpsilon) {
+				firstSet.insert("$");
+			}
+		}
+	}
+	return firstSet;
+}
+
+std::set<std::string> Grammar::getFollow(const std::string& symbol) {
+	std::set<std::string> followSet;
+    if (symbol == startSymbol) {
+		followSet.insert("$");
+	}
+    for (const std::pair<std::string, std::vector<std::vector<std::string>>>& production : productions) {
+        for (const std::vector<std::string>& prod : production.second) {
+            for (size_t i = 0; i < prod.size(); i++) {
+                if (prod[i] == symbol) {
+                    if (i == prod.size() - 1) {
+                        if (production.first != symbol) {
+							addToSet(followSet, getFollow(production.first));
+						}
+					}
+                    else {
+						bool hasEpsilon = true;
+                        for (size_t j = i + 1; j < prod.size(); j++) {
+                            if (isTerminal(prod[j])) {
+								followSet.insert(prod[j]);
+								hasEpsilon = false;
+								break;
+							}
+                            else {
+								std::set<std::string> firstProd = getFirst(prod[j]);
+                                if (!firstProd.count("$")) {
+									hasEpsilon = false;
+								}
+								addToSet(followSet, firstProd);
+							}
+						}
+                        if (hasEpsilon && production.first != symbol) {
+							addToSet(followSet, getFollow(production.first));
+						}
+					}
+				}
+			}
+		}
+	}
+	return followSet;
+}
+
+void Grammar::computeFirst() {
+    firstSets.clear();
+    for (const string& terminal : terminals) {
+		firstSets[terminal].insert(terminal);
+	}
+
+    for (const string& nonTerminal : nonTerminals) {
+		firstSets[nonTerminal] = getFirst(nonTerminal);
+	}
+}
+
+void Grammar::computeFollow() {
+	followSets.clear();
+    for (const string& nonTerminal : nonTerminals) {
+		followSets[nonTerminal] = getFollow(nonTerminal);
+	}
+}
+
+void Grammar::printFirstSets() const {
+	cout << "First sets:" << endl;
+    for (const auto& firstSet : firstSets) {
+		cout << firstSet.first << ": ";
+        for (const string& symbol : firstSet.second) {
+			cout << symbol << " ";
+		}
+		cout << endl;
+	}
+}
+
+void Grammar::printFollowSets() const {
+	cout << "Follow sets:" << endl;
+    for (const auto& followSet : followSets) {
+		cout << followSet.first << ": ";
+        for (const string& symbol : followSet.second) {
+			cout << symbol << " ";
+		}
+		cout << endl;
+	}
 }

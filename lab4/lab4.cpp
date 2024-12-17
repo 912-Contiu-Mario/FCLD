@@ -16,5 +16,10 @@ int main() {
     grammar.printProductions();
     cout << endl;
     cout << grammar.checkCFG();
+    grammar.computeFirst();
+    grammar.printFirstSets();
+
+    grammar.computeFollow();
+    grammar.printFollowSets();
     return 0;
 }

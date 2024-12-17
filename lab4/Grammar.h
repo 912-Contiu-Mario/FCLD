@@ -1,4 +1,3 @@
-#pragma once
 
 #include <string>
 #include <vector>
@@ -16,6 +15,17 @@ private:
     bool isNonTerminal(const std::string& symbol) const;
     std::vector<std::string> splitProduction(const std::string& production) const;
     bool isCFG = true;
+
+    std::map<std::string, std::set<std::string>> firstSets;  // To store First sets
+    std::map<std::string, std::set<std::string>> followSets; // To store Follow sets
+
+
+    // Helper function to add elements to a set and check if it was modified
+    bool addToSet(set<string>& targetSet, set<string>& sourceSet) {
+        size_t oldSize = targetSet.size();
+        targetSet.insert(sourceSet.begin(), sourceSet.end());
+        return targetSet.size() > oldSize;
+    }
 public:
     Grammar();
     bool readFromFile(const std::string& filename);
@@ -32,4 +42,15 @@ public:
     const std::map<std::string, std::vector<std::vector<std::string>>>& getProductions() const {
         return productions;
     }
+
+
+    // Helper to get First set of a symbol (already partially declared)
+    std::set<std::string> getFirst(const std::string& symbol);
+    std::set<std::string> getFollow(const std::string& symbol);
+    
+    void computeFirst();
+    void computeFollow();
+
+    void printFirstSets() const;
+    void printFollowSets() const;
 };
