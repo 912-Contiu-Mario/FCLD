@@ -200,7 +200,7 @@ void Grammar::computeFirst() {
 					size_t beforeSize = firstSets[A].size();
 
 					for (const string& symFirst : firstSets[symbol]) {
-						if (symFirst != "$") {
+						if (symFirst != "e") {
 							firstSets[A].insert(symFirst);
 						}
 					}
@@ -209,15 +209,15 @@ void Grammar::computeFirst() {
 						changed = true;
 					}
 
-					if (firstSets[symbol].find("$") == firstSets[symbol].end()) {
+					if (firstSets[symbol].find("e") == firstSets[symbol].end()) {
 						epsilonInAll = false;
 						break;
 					}
 				}
 
 				if (epsilonInAll) {
-					if (firstSets[A].find("$") == firstSets[A].end()) {
-						firstSets[A].insert("$");
+					if (firstSets[A].find("e") == firstSets[A].end()) {
+						firstSets[A].insert("e");
 						changed = true;
 					}
 				}
@@ -230,7 +230,7 @@ void Grammar::computeFirst() {
 void Grammar::computeFollow() {
 	followSets.clear();
 
-	followSets[startSymbol].insert("$");
+	followSets[startSymbol].insert("e");
 
 	bool changed = true;
 

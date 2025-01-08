@@ -1,17 +1,26 @@
-# Non-terminals
-S
-A
-B
+E
+T
+F
+X
+Y
 $
-# Terminals
-a
-b
+
+*
+id
+e
++
+(
+)
 $
-# Start symbol
-S
+
+F
 $
-# Productions
-S -> A B
-A -> a A
-A -> a
-B -> b B
+
+E -> T X
+X -> + T X
+X -> e
+T -> F Y
+Y -> * F Y
+Y -> e
+F -> id
+F -> ( E )
